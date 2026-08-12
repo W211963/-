@@ -45,10 +45,10 @@
     --shadow-glow-gold: 0 0 40px rgba(212, 168, 83, 0.25);
     
     /* 字体 */
-    --font-display: 'Noto Serif SC', 'Songti SC', serif;
-    --font-tech: 'Orbitron', 'JetBrains Mono', monospace;
-    --font-body: 'Noto Serif SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: Georgia, 'Songti SC', 'SimSun', serif;
+    --font-tech: 'Helvetica Neue', Arial, sans-serif;
+    --font-body: -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+    --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
     
     /* 尺寸 */
     --nav-height: 80px;
@@ -2315,7 +2315,7 @@ ul {
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-md);
     color: rgba(255, 255, 255, 0.5);
-    font-family: 'Noto Serif SC', serif;
+    font-family: Georgia, 'Songti SC', 'SimSun', serif;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -2356,7 +2356,7 @@ ul {
     margin-bottom: 32px;
     color: rgba(255, 255, 255, 0.35);
     font-size: 13px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 .rank-update-dot {
@@ -2408,7 +2408,7 @@ ul {
 .ranking-table th {
     padding: 16px 14px;
     text-align: left;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.5px;
@@ -2439,7 +2439,7 @@ ul {
 
 /* 排名数字 */
 .rank-num {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.35);
@@ -2492,7 +2492,7 @@ ul {
 
 /* 机型名 */
 .device-name {
-    font-family: 'Noto Serif SC', serif;
+    font-family: Georgia, 'Songti SC', 'SimSun', serif;
     font-size: 14px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
@@ -2501,7 +2501,7 @@ ul {
 
 /* 芯片名 */
 .chip-name {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.4);
     white-space: nowrap;
@@ -2509,7 +2509,7 @@ ul {
 
 /* 分数 */
 .score-val {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 15px;
     font-weight: 700;
     color: var(--accent-gold);
@@ -2578,7 +2578,7 @@ ul {
     gap: 8px;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.5);
-    font-family: 'Noto Serif SC', serif;
+    font-family: Georgia, 'Songti SC', 'SimSun', serif;
 }
 
 .legend-dot {
