@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>向前 | 数码科技 · 探索未来</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 背景效果 -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="grain"></div>
+
+    <!-- 视频播放模态框 -->
+    <div class="modal-overlay video-modal-overlay" id="videoModal">
+        <div class="video-modal">
+            <button class="modal-close video-modal-close" onclick="closeVideo()" aria-label="关闭">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="video-player-wrap">
+                <video id="videoPlayer" class="video-player" controls playsinline preload="metadata"
+                       poster="">
+                    您的浏览器不支持 HTML5 视频播放。
+                </video>
+            </div>
+            <div class="video-info-bar">
+                <div class="video-info-left">
+                    <h3 class="video-modal-title" id="videoModalTitle">视频标题</h3>
+                    <div class="video-modal-meta" id="videoModalMeta">
+                        <span>· 数码博主测评视频</span>
+                    </div>
+                </div>
+                <div class="video-info-right">
+                    <button class="video-action-btn" title="点赞">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                        </svg>
+                    </button>
+                    <button class="video-action-btn" title="收藏">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                    <button class="video-action-btn" title="分享">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"/>
+                            <circle cx="6" cy="12" r="3"/>
+                            <circle cx="18" cy="19" r="3"/>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeLogin()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <svg viewBox="0 0 40 40" class="logo-star">
+                        <polygon points="20,4 24,16 37,16 27,24 31,36 20,28 9,36 13,24 3,16 16,16" 
+                                 fill="url(#starGrad)" stroke="#D4A853" stroke-width="0.5"/>
+                        <defs>
+                            <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F5D98E"/>
+                                <stop offset="50%" style="stop-color:#D4A853"/>
+                                <stop offset="100%" style="stop-color:#B8860B"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h2 class="modal-title">欢迎回到 <span class="accent">向前</span></h2>
+                <p class="modal-subtitle">登录以探索更多数码科技内容</p>
+            </div>
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">账号 / 邮箱</label>
+                    <div class="input-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        <input type="text" class="form-input" placeholder="请输入账号或邮箱" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">密码</label>
+                    <div class="input-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <input type="password" class="form-input" placeholder="请输入密码" required>
+                    </div>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-wrap">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">记住登录状态</span>
+                    </label>
+                    <a href="#" class="forgot-link">忘记密码？</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-login">
+                    <span>立即登录</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <div class="form-divider">
+                    <span>或</span>
+                </div>
+                <div class="social-login">
+                    <button type="button" class="social-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="social-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="social-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M19.67 5.27a.5.5 0 00-.34-.37C18.04 4.5 12 4.5 12 4.5s-6.04 0-7.33.4a.5.5 0 00-.34.37C4 6.58 4 12 4 12s0 5.42.33 6.73a.5.5 0 00.34.37C5.96 19.5 12 19.5 12 19.5s6.04 0 7.33-.4a.5.5 0 00.34-.37C20 17.42 20 12 20 12s0-5.42-.33-6.73zM9.75 15.5V8.5l6 3.5-6 3.5z"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="form-footer">
+                    还没有账号？<a href="#" class="signup-link">立即注册</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <svg viewBox="0 0 40 40" class="logo-star">
+                    <polygon points="20,4 24,16 37,16 27,24 31,36 20,28 9,36 13,24 3,16 16,16" 
+                             fill="url(#starGrad2)" stroke="#D4A853" stroke-width="0.5"/>
+                    <defs>
+                        <linearGradient id="starGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#F5D98E"/>
+                            <stop offset="50%" style="stop-color:#D4A853"/>
+                            <stop offset="100%" style="stop-color:#B8860B"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">向前</span>
+                <span class="logo-tagline">· FORWARD ·</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">首页</a></li>
+                <li><a href="#works" class="nav-link">作品</a></li>
+                <li><a href="#videos" class="nav-link">视频</a></li>
+                <li><a href="#rankings" class="nav-link">排行</a></li>
+                <li><a href="#gallery" class="nav-link">图赏</a></li>
+                <li><a href="#about" class="nav-link">关于</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="nav-search" aria-label="搜索">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                </button>
+                <button class="btn btn-outline" onclick="openLogin()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>登录</span>
+                </button>
+            </div>
+
+            <button class="nav-toggle" id="navToggle" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-left">
+                <div class="hero-badge reveal">
+                    <span class="badge-dot"></span>
+                    <span>数码科技创作者 · Digital Creator</span>
+                </div>
+                <h1 class="hero-title reveal">
+                    <span class="title-line">探索</span>
+                    <span class="title-line"><span class="accent-gradient">数码世界</span></span>
+                    <span class="title-line">的无限可能</span>
+                </h1>
+                <p class="hero-desc reveal">
+                    这里是「向前」—— 聚焦前沿科技产品评测、深度开箱体验与技术解析。<br>
+                    用镜头记录每一款改变生活的数码设备，用专业视角解读科技美学。
+                </p>
+                <div class="hero-cta reveal">
+                    <a href="#works" class="btn btn-primary">
+                        <span>浏览作品</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#about" class="btn btn-ghost">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                        <span>了解我</span>
+                    </a>
+                </div>
+                <div class="hero-stats reveal">
+                    <div class="stat">
+                        <div class="stat-num" data-target="256">0</div>
+                        <div class="stat-label">作品发布</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-num" data-target="128">0</div>
+                        <div class="stat-label">视频投稿</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-num" data-target="52">0</div>
+                        <div class="stat-label">K 关注者</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-right reveal">
+                <div class="avatar-wrap">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar-ring avatar-ring-2"></div>
+                    <div class="avatar-container">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=A%20stunning%20cosmic%20avatar%20image%20featuring%20a%20golden%20five-pointed%20star%20at%20the%20center%2C%20surrounded%20by%20a%20swirling%20crimson%20nebula%20vortex%20in%20deep%20space%20with%20scattered%20stars%2C%20epic%20cinematic%20lighting%2C%20luxury%20feel&image_size=square_hd" alt="向前头像" class="avatar-img">
+                        <div class="avatar-glow"></div>
+                    </div>
+                    <div class="floating-card card-1">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                                <line x1="12" y1="18" x2="12" y2="18"/>
+                            </svg>
+                        </div>
+                        <div class="card-text">
+                            <div class="card-title">最新评测</div>
+                            <div class="card-meta">iPhone 16 Pro Max</div>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="23 7 16 12 23 17 23 7"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            </svg>
+                        </div>
+                        <div class="card-text">
+                            <div class="card-title">视频更新</div>
+                            <div class="card-meta">每周三 · 晚8点</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-scroll reveal">
+            <span>向下滚动探索</span>
+            <div class="scroll-line">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品分类 -->
+    <section class="section works" id="works">
+        <div class="section-header reveal">
+            <div class="section-tag">
+                <span class="tag-line"></span>
+                <span>FEATURED WORKS</span>
+                <span class="tag-line"></span>
+            </div>
+            <h2 class="section-title">精选 <span class="accent-gradient">作品</span></h2>
+            <p class="section-desc">精心制作的数码评测与科技内容，带你领略产品之美</p>
+        </div>
+
+        <div class="filter-tabs reveal">
+            <button class="filter-tab active" data-filter="all">全部作品</button>
+            <button class="filter-tab" data-filter="review">产品评测</button>
+            <button class="filter-tab" data-filter="unbox">深度开箱</button>
+            <button class="filter-tab" data-filter="tech">技术解析</button>
+            <button class="filter-tab" data-filter="vlog">生活Vlog</button>
+        </div>
+
+        <div class="works-grid">
+            <article class="work-card reveal" data-category="review"
+                     data-video="https://test-videos.co.uk/vids/jellyfish/mp4/h264/360/Jellyfish_360_10s_1MB.mp4"
+                     data-title="iPhone 16 Pro Max 深度评测：钛金属机身的极致体验">
+                <div class="work-media">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional%20product%20photography%20of%20a%20premium%20smartphone%20iPhone%2016%20Pro%20Max%20on%20dark%20marble%20surface%2C%20dramatic%20studio%20lighting%2C%20tech%20review%20style%2C%20high%20end%20aesthetic&image_size=landscape_16_9" alt="作品封面" class="work-img">
+                    <div class="work-overlay">
+                        <button class="play-btn" onclick="playWorkVideo(this)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="work-duration">18:42</div>
+                    <div class="work-badge">热门</div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">产品评测</div>
+                    <h3 class="work-title">iPhone 16 Pro Max 深度评测：钛金属机身的极致体验</h3>
+                    <div class="work-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            128.5K 观看
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            3天前
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="work-card reveal" data-category="unbox"
+                     data-video="https://media.w3.org/2010/05/video/movie_300.mp4"
+                     data-title="MacBook Pro M4 Max 首发开箱：性能怪兽的真实表现">
+                <div class="work-media">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Premium%20unboxing%20experience%20of%20MacBook%20Pro%20M4%20chip%2C%20minimalist%20dark%20background%2C%20elegant%20product%20reveal%2C%20soft%20lighting%2C%20luxury%20tech%20photography&image_size=landscape_16_9" alt="作品封面" class="work-img">
+                    <div class="work-overlay">
+                        <button class="play-btn" onclick="playWorkVideo(this)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="work-duration">24:15</div>
+                    <div class="work-badge badge-gold">新品</div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category cat-gold">深度开箱</div>
+                    <h3 class="work-title">MacBook Pro M4 Max 首发开箱：性能怪兽的真实表现</h3>
+                    <div class="work-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            96.3K 观看
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            1周前
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="work-card reveal" data-category="tech"
+                     data-video="https://media.w3.org/2010/05/sintel/trailer.mp4"
+                     data-title="一文看懂芯片制程：3nm 到 2nm 的技术突破在哪里">
+                <div class="work-media">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Futuristic%20circuit%20board%20closeup%20with%20RGB%20lighting%2C%20computer%20chip%20technology%2C%20macro%20photography%2C%20cyberpunk%20aesthetic%2C%20blue%20purple%20glow&image_size=landscape_16_9" alt="作品封面" class="work-img">
+                    <div class="work-overlay">
+                        <button class="play-btn" onclick="playWorkVideo(this)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="work-duration">32:08</div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category cat-tech">技术解析</div>
+                    <h3 class="work-title">一文看懂芯片制程：3nm 到 2nm 的技术突破在哪里</h3>
+                    <div class="work-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            72.1K 观看
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            2周前
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="work-card reveal" data-category="vlog"
+                     data-video="https://media.w3.org/2010/05/bunny/trailer.mp4"
+                     data-title="我的工作室 2.0 升级：花费 10 万打造数码博主的梦想桌面">
+                <div class="work-media">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Tech%20vlogger%20desk%20setup%20with%20multiple%20monitors%2C%20RGB%20keyboard%2C%20headphones%2C%20warm%20evening%20lighting%2C%20cozy%20workspace%20aesthetic%2C%20cinematic%20composition&image_size=landscape_16_9" alt="作品封面" class="work-img">
+                    <div class="work-overlay">
+                        <button class="play-btn" onclick="playWorkVideo(this)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="work-duration">15:33</div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category cat-vlog">生活Vlog</div>
+                    <h3 class="work-title">我的工作室 2.0 升级：花费 10 万打造数码博主的梦想桌面</h3>
+                    <div class="work-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            156.8K 观看
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            1月前
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="work-card reveal" data-category="review"
+                     data-video="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"
+                     data-title="索尼 WH-1000XM6 首发评测：降噪天花板还能继续突破吗？">
+                <div class="work-media">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=High%20end%20wireless%20headphones%20Sony%20WH%201000XM6%20on%20dark%20background%2C%20product%20photography%2C%20dramatic%20lighting%2C%20premium%20tech%20aesthetic&image_size=landscape_16_9" alt="作品封面" class="work-img">
+                    <div class="work-overlay">
+                        <button class="play-btn" onclick="playWorkVideo(this)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="work-duration">21:57</div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">产品评测</div>
+                    <h3 class="work-title">索尼 WH-1000XM6 首发评测：降噪天花板还能继续突破吗？</h3>
+                    <div class="work-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            89.2K 观看
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            3周前
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="work-card reveal" data-category="unbox"
+                     data-video="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
+                     data-title="iPad Pro OLED 版开箱体验：屏幕素质真的值得升级吗？">
+                <div class="work-media">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=New%20iPad%20Pro%20with%20OLED%20display%20unboxing%2C%20Apple%20Pencil%2C%20Magic%20Keyboard%2C%20premium%20minimalist%20style%2C%20soft%20box%20lighting&image_size=landscape_16_9" alt="作品封面" class="work-img">
+                    <div class="work-overlay">
+                        <button class="play-btn" onclick="playWorkVideo(this)">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="work-duration">19:22</div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category cat-gold">深度开箱</div>
+                    <h3 class="work-title">iPad Pro OLED 版开箱体验：屏幕素质真的值得升级吗？</h3>
+                    <div class="work-meta">
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            112.4K 观看
+                        </span>
+                        <span class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            1月前
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="section-more reveal">
+            <button class="btn btn-outline">
+                <span>查看全部作品</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- 视频专区 -->
+    <section class="section videos" id="videos">
+        <div class="section-header reveal">
+            <div class="section-tag">
+                <span class="tag-line"></span>
+                <span>LATEST VIDEOS</span>
+                <span class="tag-line"></span>
+            </div>
+            <h2 class="section-title">视频 <span class="accent-gradient">专区</span></h2>
+            <p class="section-desc">手机端同步更新 · 高清画质 · 沉浸式观看体验</p>
+        </div>
+
+        <div class="video-featured reveal"
+             data-video="https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4"
+             data-title="2026 年度旗舰横评：iPhone vs Samsung vs Huawei，谁才是真正的机皇？">
+            <div class="featured-media">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic%20tech%20review%20video%20thumbnail%2C%20smartphone%20comparison%20scene%2C%20dramatic%20lighting%20with%20red%20and%20gold%20accent%20lights%2C%20premium%20YouTube%20thumbnail%20style&image_size=landscape_16_9" alt="精选视频" class="featured-img">
+                <div class="featured-overlay">
+                    <button class="featured-play" onclick="playFeaturedVideo(this)">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="featured-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    <span>本周精选</span>
+                </div>
+            </div>
+            <div class="featured-info">
+                <div class="featured-label">FEATURED VIDEO · 精选视频</div>
+                <h3 class="featured-title">2026 年度旗舰横评：iPhone vs Samsung vs Huawei，谁才是真正的机皇？</h3>
+                <p class="featured-desc">
+                    三大旗舰同台竞技，从外观、屏幕、性能、相机到续航全方位对比。
+                    耗时一个月深度评测，用数据告诉你答案...
+                </p>
+                <div class="featured-stats">
+                    <div class="f-stat">
+                        <div class="f-stat-num">45:28</div>
+                        <div class="f-stat-label">时长</div>
+                    </div>
+                    <div class="f-stat">
+                        <div class="f-stat-num">326.5K</div>
+                        <div class="f-stat-label">播放量</div>
+                    </div>
+                    <div class="f-stat">
+                        <div class="f-stat-num">8.9K</div>
+                        <div class="f-stat-label">点赞</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="playFeaturedVideo(this)">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    <span>立即观看</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- 图赏 -->
+    <section class="section gallery" id="gallery">
+        <div class="section-header reveal">
+            <div class="section-tag">
+                <span class="tag-line"></span>
+                <span>PHOTO GALLERY</span>
+                <span class="tag-line"></span>
+            </div>
+            <h2 class="section-title">产品 <span class="accent-gradient">图赏</span></h2>
+            <p class="section-desc">用镜头捕捉科技产品的设计美学，每一张都是艺术品</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item g-tall reveal">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Artistic%20product%20photography%20of%20smartphone%20edge%20detail%2C%20titanium%20finish%2C%20macro%20shot%2C%20dramatic%20rim%20lighting%2C%20dark%20moody%20background&image_size=portrait_4_3" alt="产品图" class="gallery-img">
+                <div class="gallery-caption">
+                    <span>钛金属边框 · 微距</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Flat%20lay%20of%20tech%20accessories%2C%20wireless%20earbuds%2C%20smartwatch%2C%20charging%20cable%20on%20dark%20stone%20surface%2C%20top%20down%20view%2C%20minimal%20aesthetic&image_size=square_hd" alt="产品图" class="gallery-img">
+                <div class="gallery-caption">
+                    <span>数码配件 · 合集</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Laptop%20keyboard%20backlight%20closeup%2C%20RGB%20lighting%2C%20shallow%20depth%20of%20field%2C%20night%20aesthetic%2C%20macro%20photography&image_size=square_hd" alt="产品图" class="gallery-img">
+                <div class="gallery-caption">
+                    <span>键盘背光 · 夜景</span>
+                </div>
+            </div>
+            <div class="gallery-item g-wide reveal">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Panoramic%20shot%20of%20modern%20desk%20setup%2C%20ultrawide%20monitor%2C%20mechanical%20keyboard%2C%20studio%20microphone%2C%20clean%20minimalist%20workspace%2C%20warm%20lighting&image_size=landscape_4_3" alt="产品图" class="gallery-img">
+                <div class="gallery-caption">
+                    <span>工作室全景 · 桌面</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Headphones%20on%20wooden%20desk%2C%20afternoon%20sunlight%20through%20window%2C%20warm%20tones%2C%20lifestyle%20product%20photography%2C%20cozy%20vibe&image_size=square_hd" alt="产品图" class="gallery-img">
+                <div class="gallery-caption">
+                    <span>耳机 · 生活方式</span>
+                </div>
+            </div>
+            <div class="gallery-item g-tall reveal">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Smartwatch%20detail%20shot%2C%20luxury%20metal%20band%2C%20AMOLED%20display%20showing%20time%2C%20reflective%20surface%2C%20studio%20product%20photography&image_size=portrait_4_3" alt="产品图" class="gallery-img">
+                <div class="gallery-caption">
+                    <span>智能手表 · 细节</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 排行榜 -->
+    <section class="section rankings" id="rankings">
+        <div class="section-header reveal">
+            <div class="section-tag">
+                <span class="tag-line"></span>
+                <span>RANKINGS &amp; BENCHMARKS</span>
+                <span class="tag-line"></span>
+            </div>
+            <h2 class="section-title">性能 <span class="accent-gradient">排行榜</span></h2>
+            <p class="section-desc">全球手机 · 电脑性能跑分 &amp; 续航实测 · 涵盖苹果 / 华为 / 小米 / OPPO / vivo / 三星 / 荣耀等全部品牌子品牌</p>
+        </div>
+
+        <!-- 排行榜 Tab 切换 -->
+        <div class="ranking-tabs reveal">
+            <button class="ranking-tab active" data-rank="phone-perf">手机性能榜</button>
+            <button class="ranking-tab" data-rank="phone-battery">手机续航榜</button>
+            <button class="ranking-tab" data-rank="phone-camera">手机影像榜</button>
+            <button class="ranking-tab" data-rank="laptop-perf">电脑性能榜</button>
+        </div>
+
+        <!-- 更新时间 -->
+        <div class="ranking-update reveal">
+            <span class="rank-update-dot"></span>
+            <span>数据更新于 2026 年 8 月 · 跑分来源 AnTuTu / Geekbench / 实验室实测</span>
+        </div>
+
+        <!-- 手机性能榜 (AnTuTu) -->
+        <div class="ranking-panel active" id="rank-phone-perf">
+            <div class="ranking-table-wrap reveal">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th class="col-rank">排名</th>
+                            <th class="col-brand">品牌</th>
+                            <th class="col-device">机型</th>
+                            <th class="col-chip">芯片</th>
+                            <th class="col-score">跑分</th>
+                            <th class="col-bar">性能占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-num rank-1">1</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16 Pro Max</td>
+                            <td class="chip-name">A18 Pro</td>
+                            <td class="score-val">2,768,592</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:100%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-2">2</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Mate 70 Pro+</td>
+                            <td class="chip-name">麒麟 9020</td>
+                            <td class="score-val">2,615,430</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:94.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-3">3</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi 15 Pro</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,589,100</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:93.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">4</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo X200 Pro</td>
+                            <td class="chip-name">天玑 9400</td>
+                            <td class="score-val">2,571,800</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:92.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">5</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Find X8 Pro</td>
+                            <td class="chip-name">天玑 9400</td>
+                            <td class="score-val">2,553,200</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:92.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">6</td>
+                            <td><span class="brand-tag brand-oppo">一加</span></td>
+                            <td class="device-name">OnePlus 13</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,548,600</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:92.1%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">7</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25 Ultra</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,531,400</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:91.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">8</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor Magic 7 Pro</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,518,900</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:91.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">9</td>
+                            <td><span class="brand-tag brand-xiaomi">Redmi</span></td>
+                            <td class="device-name">Redmi K80 Pro</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,486,300</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:89.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">10</td>
+                            <td><span class="brand-tag brand-vivo">iQOO</span></td>
+                            <td class="device-name">iQOO 13</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,472,100</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:89.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">11</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16 Pro</td>
+                            <td class="chip-name">A18 Pro</td>
+                            <td class="score-val">2,451,800</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:88.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">12</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Mate 70 Pro</td>
+                            <td class="chip-name">麒麟 9020</td>
+                            <td class="score-val">2,423,600</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:87.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">13</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi 15</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,401,500</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:86.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">14</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Find X8</td>
+                            <td class="chip-name">天玑 9400</td>
+                            <td class="score-val">2,378,200</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:85.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">15</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo X200</td>
+                            <td class="chip-name">天玑 9400</td>
+                            <td class="score-val">2,356,700</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:85.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">16</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25+</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,338,400</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:84.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">17</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor Magic 7</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,315,600</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:83.7%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">18</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Pura 70 Ultra</td>
+                            <td class="chip-name">麒麟 9010</td>
+                            <td class="score-val">2,286,300</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:82.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">19</td>
+                            <td><span class="brand-tag brand-xiaomi">Redmi</span></td>
+                            <td class="device-name">Redmi K80</td>
+                            <td class="chip-name">骁龙 8 Gen 3</td>
+                            <td class="score-val">2,251,800</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:81.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">20</td>
+                            <td><span class="brand-tag brand-oppo">一加</span></td>
+                            <td class="device-name">OnePlus 13R</td>
+                            <td class="chip-name">骁龙 8 Gen 3</td>
+                            <td class="score-val">2,218,400</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:80.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">21</td>
+                            <td><span class="brand-tag brand-vivo">iQOO</span></td>
+                            <td class="device-name">iQOO Neo 10 Pro</td>
+                            <td class="chip-name">天玑 9400</td>
+                            <td class="score-val">2,193,500</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:79.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">22</td>
+                            <td><span class="brand-tag brand-realme">真我</span></td>
+                            <td class="device-name">realme GT 7 Pro</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,168,200</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-realme" style="width:78.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">23</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25</td>
+                            <td class="chip-name">骁龙 8 Elite</td>
+                            <td class="score-val">2,142,600</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:77.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">24</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Reno 13 Pro</td>
+                            <td class="chip-name">天玑 8350</td>
+                            <td class="score-val">2,086,400</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:75.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">25</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo S20 Pro</td>
+                            <td class="chip-name">天玑 9300+</td>
+                            <td class="score-val">2,053,800</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:74.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">26</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi CIVI 5 Pro</td>
+                            <td class="chip-name">骁龙 8s Gen 4</td>
+                            <td class="score-val">2,018,600</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:72.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">27</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor 400 Pro</td>
+                            <td class="chip-name">骁龙 8s Gen 4</td>
+                            <td class="score-val">1,986,300</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:71.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">28</td>
+                            <td><span class="brand-tag brand-xiaomi">POCO</span></td>
+                            <td class="device-name">POCO F7 Ultra</td>
+                            <td class="chip-name">骁龙 8s Gen 4</td>
+                            <td class="score-val">1,952,100</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:70.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">29</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">nova 13 Ultra</td>
+                            <td class="chip-name">麒麟 9010L</td>
+                            <td class="score-val">1,918,400</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:69.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">30</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16</td>
+                            <td class="chip-name">A18</td>
+                            <td class="score-val">1,886,200</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:68.2%"></div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 手机续航榜 -->
+        <div class="ranking-panel" id="rank-phone-battery">
+            <div class="ranking-table-wrap reveal">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th class="col-rank">排名</th>
+                            <th class="col-brand">品牌</th>
+                            <th class="col-device">机型</th>
+                            <th class="col-chip">电池</th>
+                            <th class="col-score">续航时长</th>
+                            <th class="col-bar">续航占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-num rank-1">1</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo X200 Pro</td>
+                            <td class="chip-name">6000 mAh</td>
+                            <td class="score-val">14h 22min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:100%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-2">2</td>
+                            <td><span class="brand-tag brand-oppo">一加</span></td>
+                            <td class="device-name">OnePlus 13</td>
+                            <td class="chip-name">6000 mAh</td>
+                            <td class="score-val">14h 08min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:98.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-3">3</td>
+                            <td><span class="brand-tag brand-xiaomi">Redmi</span></td>
+                            <td class="device-name">Redmi K80 Pro</td>
+                            <td class="chip-name">6000 mAh</td>
+                            <td class="score-val">13h 51min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:96.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">4</td>
+                            <td><span class="brand-tag brand-vivo">iQOO</span></td>
+                            <td class="device-name">iQOO 13</td>
+                            <td class="chip-name">6150 mAh</td>
+                            <td class="score-val">13h 46min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:95.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">5</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor Magic 7 Pro</td>
+                            <td class="chip-name">5850 mAh</td>
+                            <td class="score-val">13h 32min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:94.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">6</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi 15 Pro</td>
+                            <td class="chip-name">5400 mAh</td>
+                            <td class="score-val">13h 18min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:92.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">7</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Mate 70 Pro+</td>
+                            <td class="chip-name">5700 mAh</td>
+                            <td class="score-val">13h 05min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:91.1%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">8</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Find X8 Pro</td>
+                            <td class="chip-name">5630 mAh</td>
+                            <td class="score-val">12h 52min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:89.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">9</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25 Ultra</td>
+                            <td class="chip-name">5000 mAh</td>
+                            <td class="score-val">12h 38min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:88.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">10</td>
+                            <td><span class="brand-tag brand-realme">真我</span></td>
+                            <td class="device-name">realme GT 7 Pro</td>
+                            <td class="chip-name">6500 mAh</td>
+                            <td class="score-val">12h 25min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-realme" style="width:86.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">11</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16 Pro Max</td>
+                            <td class="chip-name">4685 mAh</td>
+                            <td class="score-val">12h 12min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:85.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">12</td>
+                            <td><span class="brand-tag brand-vivo">iQOO</span></td>
+                            <td class="device-name">iQOO Neo 10 Pro</td>
+                            <td class="chip-name">5500 mAh</td>
+                            <td class="score-val">11h 58min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:83.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">13</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor Magic 7</td>
+                            <td class="chip-name">5650 mAh</td>
+                            <td class="score-val">11h 45min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:81.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">14</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi 15</td>
+                            <td class="chip-name">5240 mAh</td>
+                            <td class="score-val">11h 32min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:80.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">15</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Mate 70 Pro</td>
+                            <td class="chip-name">5500 mAh</td>
+                            <td class="score-val">11h 20min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:79.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">16</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Find X8</td>
+                            <td class="chip-name">5630 mAh</td>
+                            <td class="score-val">11h 08min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:77.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">17</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo X200</td>
+                            <td class="chip-name">5800 mAh</td>
+                            <td class="score-val">10h 56min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:76.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">18</td>
+                            <td><span class="brand-tag brand-xiaomi">Redmi</span></td>
+                            <td class="device-name">Redmi K80</td>
+                            <td class="chip-name">5100 mAh</td>
+                            <td class="score-val">10h 42min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:74.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">19</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25+</td>
+                            <td class="chip-name">4900 mAh</td>
+                            <td class="score-val">10h 28min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:73.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">20</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16 Pro</td>
+                            <td class="chip-name">3582 mAh</td>
+                            <td class="score-val">10h 15min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:71.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">21</td>
+                            <td><span class="brand-tag brand-oppo">一加</span></td>
+                            <td class="device-name">OnePlus 13R</td>
+                            <td class="chip-name">5800 mAh</td>
+                            <td class="score-val">10h 02min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:70.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">22</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Pura 70 Ultra</td>
+                            <td class="chip-name">5200 mAh</td>
+                            <td class="score-val">9h 48min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:68.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">23</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Reno 13 Pro</td>
+                            <td class="chip-name">5000 mAh</td>
+                            <td class="score-val">9h 35min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:66.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">24</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo S20 Pro</td>
+                            <td class="chip-name">5500 mAh</td>
+                            <td class="score-val">9h 22min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:65.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">25</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25</td>
+                            <td class="chip-name">4000 mAh</td>
+                            <td class="score-val">9h 08min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:63.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">26</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor 400 Pro</td>
+                            <td class="chip-name">4800 mAh</td>
+                            <td class="score-val">8h 55min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:62.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">27</td>
+                            <td><span class="brand-tag brand-xiaomi">POCO</span></td>
+                            <td class="device-name">POCO F7 Ultra</td>
+                            <td class="chip-name">5000 mAh</td>
+                            <td class="score-val">8h 42min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:60.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">28</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi CIVI 5 Pro</td>
+                            <td class="chip-name">4700 mAh</td>
+                            <td class="score-val">8h 30min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:59.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">29</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">nova 13 Ultra</td>
+                            <td class="chip-name">4600 mAh</td>
+                            <td class="score-val">8h 18min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:58.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">30</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16</td>
+                            <td class="chip-name">3561 mAh</td>
+                            <td class="score-val">8h 05min</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:56.5%"></div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 手机影像榜 -->
+        <div class="ranking-panel" id="rank-phone-camera">
+            <div class="ranking-table-wrap reveal">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th class="col-rank">排名</th>
+                            <th class="col-brand">品牌</th>
+                            <th class="col-device">机型</th>
+                            <th class="col-chip">主摄</th>
+                            <th class="col-score">DXOMARK</th>
+                            <th class="col-bar">影像占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-num rank-1">1</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Pura 70 Ultra</td>
+                            <td class="chip-name">1英寸 IMX989</td>
+                            <td class="score-val">163</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:100%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-2">2</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16 Pro Max</td>
+                            <td class="chip-name">1/1.14" 定制</td>
+                            <td class="score-val">161</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:98.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-3">3</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo X200 Pro</td>
+                            <td class="chip-name">1英寸 LYT-828</td>
+                            <td class="score-val">160</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:98.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">4</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Find X8 Pro</td>
+                            <td class="chip-name">1英寸 LYT-808</td>
+                            <td class="score-val">159</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:97.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">5</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi 15 Pro</td>
+                            <td class="chip-name">1英寸 LYT-900</td>
+                            <td class="score-val">158</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:96.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">6</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Mate 70 Pro+</td>
+                            <td class="chip-name">1英寸 可变光圈</td>
+                            <td class="score-val">157</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:96.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">7</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25 Ultra</td>
+                            <td class="chip-name">200MP HP2</td>
+                            <td class="score-val">156</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:95.7%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">8</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor Magic 7 Pro</td>
+                            <td class="chip-name">1/1.3" OV50K</td>
+                            <td class="score-val">155</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:95.1%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">9</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">iPhone 16 Pro</td>
+                            <td class="chip-name">1/1.14" 定制</td>
+                            <td class="score-val">154</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:94.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">10</td>
+                            <td><span class="brand-tag brand-oppo">一加</span></td>
+                            <td class="device-name">OnePlus 13</td>
+                            <td class="chip-name">1/1.4" LYT-808</td>
+                            <td class="score-val">153</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:93.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">11</td>
+                            <td><span class="brand-tag brand-vivo">iQOO</span></td>
+                            <td class="device-name">iQOO 13</td>
+                            <td class="chip-name">1/1.56" IMX921</td>
+                            <td class="score-val">152</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:93.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">12</td>
+                            <td><span class="brand-tag brand-xiaomi">Redmi</span></td>
+                            <td class="device-name">Redmi K80 Pro</td>
+                            <td class="chip-name">1/1.56" OV50E</td>
+                            <td class="score-val">151</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:92.7%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">13</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">Mate 70 Pro</td>
+                            <td class="chip-name">1/1.3" 可变光圈</td>
+                            <td class="score-val">150</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:92.1%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">14</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25+</td>
+                            <td class="chip-name">50MP GN3</td>
+                            <td class="score-val">149</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:91.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">15</td>
+                            <td><span class="brand-tag brand-vivo">vivo</span></td>
+                            <td class="device-name">vivo X200</td>
+                            <td class="chip-name">1/1.56" IMX921</td>
+                            <td class="score-val">148</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-vivo" style="width:90.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">16</td>
+                            <td><span class="brand-tag brand-oppo">OPPO</span></td>
+                            <td class="device-name">OPPO Find X8</td>
+                            <td class="chip-name">1/1.56" LYT-600</td>
+                            <td class="score-val">147</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-oppo" style="width:90.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">17</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi 15</td>
+                            <td class="chip-name">1/1.3" OV50H</td>
+                            <td class="score-val">146</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:89.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">18</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">Honor Magic 7</td>
+                            <td class="chip-name">1/1.3" OV50H</td>
+                            <td class="score-val">145</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:89.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">19</td>
+                            <td><span class="brand-tag brand-realme">真我</span></td>
+                            <td class="device-name">realme GT 7 Pro</td>
+                            <td class="chip-name">1/1.56" IMX906</td>
+                            <td class="score-val">144</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-realme" style="width:88.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">20</td>
+                            <td><span class="brand-tag brand-samsung">三星</span></td>
+                            <td class="device-name">Galaxy S25</td>
+                            <td class="chip-name">50MP GN3</td>
+                            <td class="score-val">143</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-samsung" style="width:87.8%"></div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 电脑性能榜 -->
+        <div class="ranking-panel" id="rank-laptop-perf">
+            <div class="ranking-table-wrap reveal">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th class="col-rank">排名</th>
+                            <th class="col-brand">品牌</th>
+                            <th class="col-device">机型</th>
+                            <th class="col-chip">处理器</th>
+                            <th class="col-score">Geekbench 6</th>
+                            <th class="col-bar">性能占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-num rank-1">1</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">MacBook Pro 16 (M4 Max)</td>
+                            <td class="chip-name">M4 Max 16C</td>
+                            <td class="score-val">3,856</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:100%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-2">2</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">MacBook Pro 14 (M4 Max)</td>
+                            <td class="chip-name">M4 Max 14C</td>
+                            <td class="score-val">3,712</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:96.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num rank-3">3</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">MacBook Pro 16 (M4 Pro)</td>
+                            <td class="chip-name">M4 Pro 12C</td>
+                            <td class="score-val">3,486</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:90.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">4</td>
+                            <td><span class="brand-tag brand-asus">华硕</span></td>
+                            <td class="device-name">ROG Zephyrus G16 (2025)</td>
+                            <td class="chip-name">Core Ultra 9 285H</td>
+                            <td class="score-val">3,268</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-asus" style="width:84.8%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">5</td>
+                            <td><span class="brand-tag brand-lenovo">联想</span></td>
+                            <td class="device-name">Legion 9i (2025)</td>
+                            <td class="chip-name">Core Ultra 9 285HX</td>
+                            <td class="score-val">3,215</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-lenovo" style="width:83.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">6</td>
+                            <td><span class="brand-tag brand-msi">微星</span></td>
+                            <td class="device-name">MSI Titan 18 HX (2025)</td>
+                            <td class="chip-name">Core Ultra 9 285HX</td>
+                            <td class="score-val">3,182</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-msi" style="width:82.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">7</td>
+                            <td><span class="brand-tag brand-lenovo">联想</span></td>
+                            <td class="device-name">ThinkPad P16 Gen 3</td>
+                            <td class="chip-name">Core Ultra 9 185H</td>
+                            <td class="score-val">3,098</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-lenovo" style="width:80.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">8</td>
+                            <td><span class="brand-tag brand-dell">戴尔</span></td>
+                            <td class="device-name">XPS 16 (2025)</td>
+                            <td class="chip-name">Core Ultra 9 285H</td>
+                            <td class="score-val">3,052</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-dell" style="width:79.2%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">9</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">MateBook X Pro 2025</td>
+                            <td class="chip-name">Core Ultra 9 285H</td>
+                            <td class="score-val">3,018</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:78.3%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">10</td>
+                            <td><span class="brand-tag brand-asus">华硕</span></td>
+                            <td class="device-name">ProArt Studiobook 16</td>
+                            <td class="chip-name">Ryzen AI 9 HX 370</td>
+                            <td class="score-val">2,968</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-asus" style="width:77.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">11</td>
+                            <td><span class="brand-tag brand-hp">惠普</span></td>
+                            <td class="device-name">OMEN 16 (2025)</td>
+                            <td class="chip-name">Core Ultra 7 255H</td>
+                            <td class="score-val">2,892</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-hp" style="width:75.0%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">12</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">MacBook Air 15 (M4)</td>
+                            <td class="chip-name">M4 10C</td>
+                            <td class="score-val">2,836</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:73.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">13</td>
+                            <td><span class="brand-tag brand-lenovo">联想</span></td>
+                            <td class="device-name">Yoga Pro 16s (2025)</td>
+                            <td class="chip-name">Core Ultra 7 255H</td>
+                            <td class="score-val">2,781</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-lenovo" style="width:72.1%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">14</td>
+                            <td><span class="brand-tag brand-xiaomi">小米</span></td>
+                            <td class="device-name">Xiaomi Book Pro 16 (2025)</td>
+                            <td class="chip-name">Core Ultra 7 255H</td>
+                            <td class="score-val">2,735</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-xiaomi" style="width:70.9%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">15</td>
+                            <td><span class="brand-tag brand-dell">戴尔</span></td>
+                            <td class="device-name">XPS 14 (2025)</td>
+                            <td class="chip-name">Core Ultra 7 255H</td>
+                            <td class="score-val">2,688</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-dell" style="width:69.7%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">16</td>
+                            <td><span class="brand-tag brand-honor">荣耀</span></td>
+                            <td class="device-name">MagicBook Pro 16 (2025)</td>
+                            <td class="chip-name">Core Ultra 7 255H</td>
+                            <td class="score-val">2,642</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-honor" style="width:68.5%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">17</td>
+                            <td><span class="brand-tag brand-huawei">华为</span></td>
+                            <td class="device-name">MateBook 14 (2025)</td>
+                            <td class="chip-name">Core Ultra 5 225H</td>
+                            <td class="score-val">2,586</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-huawei" style="width:67.1%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">18</td>
+                            <td><span class="brand-tag brand-asus">华硕</span></td>
+                            <td class="device-name">Zenbook 14 OLED</td>
+                            <td class="chip-name">Core Ultra 5 225H</td>
+                            <td class="score-val">2,531</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-asus" style="width:65.6%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">19</td>
+                            <td><span class="brand-tag brand-apple">Apple</span></td>
+                            <td class="device-name">MacBook Air 13 (M4)</td>
+                            <td class="chip-name">M4 10C</td>
+                            <td class="score-val">2,485</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-apple" style="width:64.4%"></div></div></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">20</td>
+                            <td><span class="brand-tag brand-hp">惠普</span></td>
+                            <td class="device-name">Spectre 14 (2025)</td>
+                            <td class="chip-name">Core Ultra 5 225H</td>
+                            <td class="score-val">2,438</td>
+                            <td><div class="bar-wrap"><div class="bar-fill bar-hp" style="width:63.2%"></div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 品牌图例 -->
+        <div class="ranking-legend reveal">
+            <div class="legend-item"><span class="legend-dot brand-apple"></span>Apple</div>
+            <div class="legend-item"><span class="legend-dot brand-huawei"></span>华为</div>
+            <div class="legend-item"><span class="legend-dot brand-xiaomi"></span>小米 / Redmi / POCO</div>
+            <div class="legend-item"><span class="legend-dot brand-oppo"></span>OPPO / 一加</div>
+            <div class="legend-item"><span class="legend-dot brand-vivo"></span>vivo / iQOO</div>
+            <div class="legend-item"><span class="legend-dot brand-samsung"></span>三星</div>
+            <div class="legend-item"><span class="legend-dot brand-honor"></span>荣耀</div>
+            <div class="legend-item"><span class="legend-dot brand-realme"></span>真我</div>
+            <div class="legend-item"><span class="legend-dot brand-lenovo"></span>联想</div>
+            <div class="legend-item"><span class="legend-dot brand-asus"></span>华硕</div>
+            <div class="legend-item"><span class="legend-dot brand-dell"></span>戴尔</div>
+            <div class="legend-item"><span class="legend-dot brand-hp"></span>惠普</div>
+            <div class="legend-item"><span class="legend-dot brand-msi"></span>微星</div>
+        </div>
+    </section>
+
+    <!-- 关于 -->
+    <section class="section about" id="about">
+        <div class="about-container">
+            <div class="about-left reveal">
+                <div class="about-photo-wrap">
+                    <div class="about-photo-frame"></div>
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional%20tech%20blogger%20portrait%2C%20holding%20latest%20smartphone%2C%20modern%20studio%20background%20with%20subtle%20red%20accent%20lighting%2C%20confident%20pose%2C%20high%20end%20editorial%20style&image_size=portrait_4_3" alt="博主照片" class="about-photo">
+                    <div class="about-photo-badge">
+                        <div class="badge-year">5+</div>
+                        <div class="badge-text">年数码创作经验</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-right reveal">
+                <div class="section-tag left-tag">
+                    <span class="tag-line"></span>
+                    <span>ABOUT ME</span>
+                </div>
+                <h2 class="section-title left-title">关于 <span class="accent-gradient">「向前」</span></h2>
+                <p class="about-text">
+                    大家好，我是「向前」—— 一名专注数码科技领域的内容创作者。
+                    从 2020 年开始接触数码评测，到如今拥有超过 5 万忠实观众，
+                    每一步都离不开对科技的热爱与对内容品质的执着追求。
+                </p>
+                <p class="about-text">
+                    我相信，好的产品值得被认真对待。无论是旗舰手机、笔记本电脑，
+                    还是耳机、智能穿戴，我都会用最严苛的标准、最真实的体验，
+                    为你呈现每一款产品的全貌。
+                </p>
+                <div class="about-tags">
+                    <span class="a-tag">📱 手机评测</span>
+                    <span class="a-tag">💻 电脑硬件</span>
+                    <span class="a-tag">🎧 音频设备</span>
+                    <span class="a-tag">⌚ 智能穿戴</span>
+                    <span class="a-tag">📷 影像技术</span>
+                </div>
+                <div class="about-contact">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="contact-label">商务合作</div>
+                            <div class="contact-value">forward@tech.com</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="contact-label">视频频道</div>
+                            <div class="contact-value">每周同步更新</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 订阅 -->
+    <section class="subscribe">
+        <div class="subscribe-container reveal">
+            <div class="subscribe-left">
+                <h2 class="subscribe-title">
+                    订阅 <span class="accent-gradient">「向前」</span>
+                </h2>
+                <p class="subscribe-desc">
+                    第一时间获取最新数码资讯、评测视频、独家内容<br>
+                    不错过任何一次科技盛宴
+                </p>
+            </div>
+            <form class="subscribe-form" onsubmit="handleSubscribe(event)">
+                <div class="subscribe-input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sub-icon">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <input type="email" class="subscribe-input" placeholder="输入你的邮箱地址" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span>立即订阅</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo footer-logo">
+                    <svg viewBox="0 0 40 40" class="logo-star">
+                        <polygon points="20,4 24,16 37,16 27,24 31,36 20,28 9,36 13,24 3,16 16,16" 
+                                 fill="url(#starGrad3)" stroke="#D4A853" stroke-width="0.5"/>
+                        <defs>
+                            <linearGradient id="starGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F5D98E"/>
+                                <stop offset="50%" style="stop-color:#D4A853"/>
+                                <stop offset="100%" style="stop-color:#B8860B"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">向前</span>
+                </a>
+                <p class="footer-tagline">探索数码科技 · 记录美好生活</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Bilibili">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906L17.813 4.653zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773H5.333zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Weibo">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.381-1.017.42-1.894-.006-2.521-.799-1.176-2.986-1.108-5.49-.024 0 0-.789.345-.586-.284.386-1.238.328-2.282-.271-2.888-1.353-1.37-4.942.052-8.021 3.177C1.408 10.795 0 13.033 0 15.018c0 3.818 4.912 6.138 9.731 6.138 6.302 0 10.488-3.654 10.488-6.556 0-1.751-1.476-2.743-2.66-3.151zm1.898-6.424c-.874-.992-2.185-1.423-3.383-1.275l.011.001.003-.001c-.35.043-.585.415-.527.768.047.301.277.537.579.567.595.047 1.314.284 1.823.86.516.584.717 1.394.566 2.174-.037.159.061.321.22.358.16.038.327-.056.372-.216.204-1.093-.068-2.172-.664-3.236zm2.049-2.307c-1.68-1.904-4.192-2.747-6.498-2.444l.027.002.005-.002c-.333.04-.563.363-.517.698.039.259.24.474.496.514 1.885.252 3.916.937 5.272 2.476 1.361 1.553 1.837 3.637 1.327 5.64-.051.209.076.427.285.48.21.054.43-.071.485-.282.652-2.569.062-5.245-1.882-7.082z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h4 class="footer-col-title">内容分类</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">产品评测</a></li>
+                        <li><a href="#">深度开箱</a></li>
+                        <li><a href="#">技术解析</a></li>
+                        <li><a href="#">生活Vlog</a></li>
+                        <li><a href="#">新品资讯</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col-title">关于本站</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">关于我</a></li>
+                        <li><a href="#">商务合作</a></li>
+                        <li><a href="#">投稿建议</a></li>
+                        <li><a href="#">友情链接</a></li>
+                        <li><a href="#">版权声明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col-title">帮助支持</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">联系客服</a></li>
+                        <li><a href="#">用户协议</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">意见反馈</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-inner">
+                <p>© 2026 向前 FORWARD. All rights reserved. · 用心做好每一期内容</p>
+                <div class="footer-bottom-links">
+                    <a href="#">备案号：京ICP备XXXXXXXX号</a>
+                    <span class="dot-sep">·</span>
+                    <a href="#">京公网安备 XXXXXXXXXXXXX号</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
